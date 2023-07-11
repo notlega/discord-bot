@@ -123,8 +123,6 @@ const execute = async (interaction: CommandInteraction) => {
         InstanceIds: [newInstanceId],
     });
 
-    let serverIp: string;
-
     try {
         const { Reservations } = await ec2Client.send(describeInstancesCommand2);
 
