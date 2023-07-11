@@ -3,15 +3,13 @@ import {
     GuildMemberRoleManager,
     SlashCommandBuilder,
 } from 'discord.js';
-import {
-    DescribeInstancesCommand,
-} from '@aws-sdk/client-ec2';
+import { DescribeInstancesCommand } from '@aws-sdk/client-ec2';
 import { ec2Client, loggers } from '../utils';
 import { Command } from '../types';
 
 const data = new SlashCommandBuilder()
     .setName('status')
-    .setDescription('Get the status of the Java Server')
+    .setDescription('Get the status of the Java Server');
 
 const execute = async (interaction: CommandInteraction) => {
     // check if user has permission to run this command
@@ -42,7 +40,9 @@ const execute = async (interaction: CommandInteraction) => {
     });
 
     try {
-        const { Reservations: JavaReservations } = await ec2Client.send(javaInstanceCommand);
+        const { Reservations: JavaReservations } = await ec2Client.send(
+            javaInstanceCommand,
+        );
 
         if (!JavaReservations) {
             loggers.error('No Java reservations found');
@@ -68,7 +68,13 @@ const execute = async (interaction: CommandInteraction) => {
             return;
         }
         interaction.reply({
-            content: `Java Server is ${JavaReservations[0].Instances[0].State.Name} at ${JavaReservations[0].Instances[0].PublicIpAddress}`,
+            content: `Java Server is ${
+                JavaReservations[0].Instances[0].State.Name
+            }${
+                JavaReservations[0].Instances[0].State.Name === 'running'
+                    ? ` at ${JavaReservations[0].Instances[0].PublicIpAddress}`
+                    : ''
+            }}`,
         });
     } catch (error) {
         loggers.error(`Error retrieving data from AWS: ${error}`);
