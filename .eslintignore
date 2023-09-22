@@ -11,8 +11,12 @@ pnpm-workspace.yaml
 **/.eslintrc.json
 .npmrc
 .gitignore
-.dockerignore
 **/tsconfig.json
 .vscode/**
 .idea/**
 prisma
+.next/**
+LICENSE
+.env
+.env.*
+public/**

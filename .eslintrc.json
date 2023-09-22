@@ -1,7 +1,8 @@
 {
     "extends": [
-        "airbnb-base",
-        "airbnb-typescript/base",
+        "airbnb",
+        "airbnb-typescript",
+        "next/core-web-vitals",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:import/recommended",
@@ -26,7 +27,7 @@
         "import/extensions": "off",
         "@typescript-eslint/no-non-null-assertion": "off"
     },
-    "ignorePatterns": ["node_modules", "dist", "esbuild.config.js"],
+    "ignorePatterns": ["node_modules", ".next", "public"],
     "env": {
         "browser": true,
         "node": true,

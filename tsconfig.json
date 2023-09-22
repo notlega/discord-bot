@@ -1,28 +1,33 @@
 {
-    "compilerOptions": {
-        "allowArbitraryExtensions": true,
-        "allowJs": true,
-        "baseUrl": ".",
-        "declaration": true,
-        "esModuleInterop": true,
-        "mapRoot": "./dist",
-        "module": "CommonJS",
-        "moduleResolution": "Node",
-        "noImplicitAny": true,
-        "noImplicitOverride": true,
-        "noImplicitReturns": true,
-        "noUncheckedIndexedAccess": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "outDir": "./dist",
-        "resolveJsonModule": true,
-        "rootDir": "./src",
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "strict": true,
-        "target": "ESNext",
-        "typeRoots": ["./node_modules/@types", "./src/*.d.ts"]
-    },
-    "exclude": ["node_modules", "esbuild.config.js", ".vscode"],
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
