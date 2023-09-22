@@ -5,6 +5,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "next build",
+        "ci": "pnpm install --frozen-lockfile",
         "dc": "ts-node src/deployCommands.ts --transpileOnly",
         "dev": "next dev",
         "lint": "next lint",
@@ -28,6 +29,7 @@
         "@types/react-dom": "18.2.7",
         "@typescript-eslint/eslint-plugin": "^5.60.1",
         "@typescript-eslint/parser": "^5.60.1",
+        "autoprefixer": "10.4.16",
         "eslint": "^8.43.0",
         "eslint-config-airbnb": "19.0.4",
         "eslint-config-airbnb-typescript": "^17.0.0",
@@ -38,8 +40,10 @@
         "eslint-plugin-jsx-a11y": "6.7.1",
         "eslint-plugin-react": "7.33.2",
         "eslint-plugin-react-hooks": "4.6.0",
+        "postcss": "8.4.30",
         "prettier": "^2.8.8",
         "rimraf": "^5.0.1",
+        "tailwindcss": "3.3.3",
         "typescript": "5.2.2"
     }
 }
