@@ -23,9 +23,13 @@
   "rules": {
     "eol-last": ["warn", "always"],
     "no-underscore-dangle": "off",
+    "default-case": "off",
+    "consistent-return": "off",
     "import/prefer-default-export": "off",
     "import/extensions": "off",
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": "off"
   },
   "ignorePatterns": ["node_modules", ".next", "public"],
   "env": {

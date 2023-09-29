@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { jsonResponse } from '@/libs';
 
-export async function GET() {
-  return NextResponse.json({
-    message: 'api is up!',
+export const GET = async () =>
+  jsonResponse(200, {
+    status: 'success',
+    message: 'Hello world!',
   });
-}
