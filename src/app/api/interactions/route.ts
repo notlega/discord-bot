@@ -1,3 +1,4 @@
+import type { ServerRuntime } from 'next';
 import { NextResponse, type NextRequest } from 'next/server';
 import {
   type APIApplicationCommandInteraction,
@@ -32,3 +33,5 @@ export const POST = async (req: NextRequest) => {
 
   return commands[interaction.data.name].execute(interaction);
 };
+
+export const runtime: ServerRuntime = 'edge';

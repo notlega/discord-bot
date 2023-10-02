@@ -1,3 +1,4 @@
+import type { ServerRuntime } from 'next';
 import type { NextRequest } from 'next/server';
 
 import { jsonResponse, rest } from '@/libs';
@@ -52,3 +53,5 @@ export const POST = async (req: NextRequest) => {
     });
   }
 };
+
+export const runtime: ServerRuntime = 'edge';
