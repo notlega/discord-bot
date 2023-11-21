@@ -24,14 +24,14 @@ export const POST = async (req: NextRequest) => {
 
   const interaction = interactionNew as APIApplicationCommandInteraction;
 
-  if (interaction.type !== InteractionType.ApplicationCommand) {
-    return jsonResponse(404, {
-      status: 'error',
-      message: 'Invalid command',
-    });
+  if (interaction.type === InteractionType.ApplicationCommand) {
+    return commands[interaction.data.name].execute(interaction);
   }
 
-  return commands[interaction.data.name].execute(interaction);
+  return jsonResponse(400, {
+    status: 'error',
+    message: 'Bad request',
+  });
 };
 
 export const runtime: ServerRuntime = 'edge';
