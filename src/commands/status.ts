@@ -11,7 +11,7 @@ import { Command } from '@/types';
 
 const data = new SlashCommandBuilder()
   .setName('status')
-  .setDescription('Get the status of the Java Server');
+  .setDescription('Get the status of the Terraria Vanilla Server');
 
 const execute = async (interaction: APIApplicationCommandInteraction) => {
   // check if user has permission to run this command
@@ -27,7 +27,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     Filters: [
       {
         Name: 'tag:Name',
-        Values: ['java-minecraft-server'],
+        Values: ['terraria-vanilla'],
       },
     ],
   });
@@ -40,28 +40,28 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     if (!Reservations) {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
-        data: { content: 'No Java Reservations found' },
+        data: { content: 'No reservations found' },
       });
     }
 
     if (!Reservations[0]?.Instances) {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
-        data: { content: 'No Java Instances found' },
+        data: { content: 'No instances found' },
       });
     }
 
     if (!Reservations[0].Instances[0]?.State) {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
-        data: { content: 'No Java Instance State found' },
+        data: { content: 'No instance state found' },
       });
     }
 
     return NextResponse.json({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `Java Server is ${
+        content: `Terraria Vanilla Server is ${
           Reservations[0].Instances[0].State.Name
         }${
           Reservations[0].Instances[0].State.Name === 'running'

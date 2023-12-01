@@ -14,7 +14,7 @@ import { Command } from '@/types';
 
 const data = new SlashCommandBuilder()
   .setName('stop')
-  .setDescription('Stop Java Server');
+  .setDescription('Stop Terraria Vanilla Server');
 
 const execute = async (interaction: APIApplicationCommandInteraction) => {
   // check if user has permission to run this command
@@ -32,7 +32,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     Filters: [
       {
         Name: 'tag:Name',
-        Values: ['java-minecraft-server'],
+        Values: ['terraria-vanilla'],
       },
     ],
   });
@@ -62,7 +62,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
         data: {
-          content: 'Java Server is already stopped',
+          content: 'Terraria Vanilla Server is already stopped',
         },
       });
     }
@@ -106,7 +106,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
 
   return NextResponse.json({
     type: InteractionResponseType.ChannelMessageWithSource,
-    data: { content: 'Stopped Java Server' },
+    data: { content: 'Stopped Terraria Vanilla Server' },
   });
 };
 

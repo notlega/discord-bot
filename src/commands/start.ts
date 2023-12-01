@@ -14,7 +14,7 @@ import { Command } from '@/types';
 
 const data = new SlashCommandBuilder()
   .setName('start')
-  .setDescription('Start Java Server');
+  .setDescription('Start Terraria Vanilla Server');
 
 const execute = async (interaction: APIApplicationCommandInteraction) => {
   // check if user has permission to run this command
@@ -32,7 +32,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     Filters: [
       {
         Name: 'tag:Name',
-        Values: ['java-minecraft-server'],
+        Values: ['terraria-vanilla'],
       },
     ],
   });
@@ -61,7 +61,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
         data: {
-          content: `Java Server is already running at ${Reservations[0].Instances[0]?.PublicIpAddress}`,
+          content: `Terraria Vanilla Server is already running at ${Reservations[0].Instances[0]?.PublicIpAddress}`,
         },
       });
     }
@@ -137,7 +137,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
 
   return NextResponse.json({
     type: InteractionResponseType.ChannelMessageWithSource,
-    data: { content: 'Started Java Server' },
+    data: { content: 'Started Terraria Vanilla Server' },
   });
 };
 
