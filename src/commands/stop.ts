@@ -78,6 +78,8 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     });
   }
 
+  console.log(`http://${instanceIp}:8080/stop`);
+
   try {
     const response = await fetch(
       `http://${instanceIp}:8080/stop`,
@@ -85,7 +87,8 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
         cache: 'no-cache',
         headers: {
           'x-api-key': process.env.TERRARIA_SERVER_API_KEY!,
-        }
+        },
+        method: 'GET'
       }
     );
 
