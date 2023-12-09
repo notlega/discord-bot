@@ -27,6 +27,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
   }
 
   let instanceId: string;
+  let instanceIp: string;
 
   const describeInstancesCommand = new DescribeInstancesCommand({
     Filters: [
@@ -68,6 +69,34 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     }
 
     instanceId = Reservations[0].Instances[0]?.InstanceId as string;
+    instanceIp = Reservations[0].Instances[0]?.PublicIpAddress as string;
+  } catch (error) {
+    return NextResponse.json({
+      type: InteractionResponseType.ChannelMessageWithSource,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: { content: (error as any).message },
+    });
+  }
+
+  try {
+    const response = await fetch(
+      `http://${instanceIp}:8080/stop`,
+      {
+        cache: 'no-cache',
+        headers: {
+          'x-api-key': process.env.TERRARIA_SERVER_API_KEY!,
+        }
+      }
+    );
+
+    if (!response.ok) {
+      return NextResponse.json({
+        type: InteractionResponseType.ChannelMessageWithSource,
+        data: {
+          content: `Failed to stop Terraria Vanilla Server: ${response.statusText}`,
+        },
+      });
+    }
   } catch (error) {
     return NextResponse.json({
       type: InteractionResponseType.ChannelMessageWithSource,

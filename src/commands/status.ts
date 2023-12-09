@@ -33,9 +33,7 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
   });
 
   try {
-    const { Reservations } = await ec2Client.send(
-      javaInstanceCommand,
-    );
+    const { Reservations } = await ec2Client.send(javaInstanceCommand);
 
     if (!Reservations) {
       return NextResponse.json({
