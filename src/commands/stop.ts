@@ -4,12 +4,13 @@ import {
   DescribeInstancesCommand,
   StopInstancesCommand,
 } from '@aws-sdk/client-ec2';
+import { SendCommandCommand } from "@aws-sdk/client-ssm";
 import {
   type APIApplicationCommandInteraction,
   InteractionResponseType,
 } from 'discord-api-types/v10';
 
-import { ec2Client } from '@/libs';
+import { ec2Client, ssmClient } from '@/libs';
 import { Command } from '@/types';
 
 const data = new SlashCommandBuilder()
@@ -27,7 +28,6 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
   }
 
   let instanceId: string;
-  let instanceIp: string;
 
   const describeInstancesCommand = new DescribeInstancesCommand({
     Filters: [
@@ -69,7 +69,6 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     }
 
     instanceId = Reservations[0].Instances[0]?.InstanceId as string;
-    instanceIp = Reservations[0].Instances[0]?.PublicIpAddress as string;
   } catch (error) {
     return NextResponse.json({
       type: InteractionResponseType.ChannelMessageWithSource,
@@ -78,26 +77,23 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     });
   }
 
+  const sendCommandCommand = new SendCommandCommand({
+    InstanceIds: [instanceId],
+    DocumentName: 'AWS-RunShellScript',
+    Parameters: {
+      commands: [
+        'sudo systemctl stop terraria',
+      ],
+    },
+  });
+
   try {
-    const response = await fetch(
-      `http://${instanceIp}:8080/stop`,
-      {
-        cache: 'no-cache',
-        headers: {
-          'x-api-key': process.env.TERRARIA_SERVER_API_KEY!,
-        },
-        method: 'GET'
-      }
-    );
+    const { $metadata } = await ssmClient.send(sendCommandCommand);
 
-    console.log(response);
-
-    if (!response.ok) {
+    if (!$metadata.httpStatusCode || $metadata.httpStatusCode !== 200) {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
-        data: {
-          content: `Failed to stop Terraria Vanilla Server: ${response.type}`,
-        },
+        data: { content: 'Error Stopping Terraria Vanilla Server' },
       });
     }
   } catch (error) {
