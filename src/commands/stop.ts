@@ -78,8 +78,6 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
     });
   }
 
-  console.log(`http://${instanceIp}:8080/stop`);
-
   try {
     const response = await fetch(
       `http://${instanceIp}:8080/stop`,
@@ -92,11 +90,13 @@ const execute = async (interaction: APIApplicationCommandInteraction) => {
       }
     );
 
+    console.log(response);
+
     if (!response.ok) {
       return NextResponse.json({
         type: InteractionResponseType.ChannelMessageWithSource,
         data: {
-          content: `Failed to stop Terraria Vanilla Server: ${response.statusText}`,
+          content: `Failed to stop Terraria Vanilla Server: ${response.type}`,
         },
       });
     }
